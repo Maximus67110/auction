@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/raise')]
 class RaiseController extends AbstractController
@@ -24,6 +25,12 @@ class RaiseController extends AbstractController
         $raise->setCreatedAt(new DateTimeImmutable());
         $entityManager->persist($raise);
         $entityManager->flush();
+
+        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            return $this->render('home/success.stream.html.twig');
+        }
+
         $this->addFlash('success', 'Raise has been successfully created');
         return $this->redirectToRoute('app_home');
     }
