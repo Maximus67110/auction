@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Enum\Status;
 
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 class Auction
@@ -37,8 +38,8 @@ class Auction
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', enumType: Status::class)]
+    private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'auction', targetEntity: Raise::class)]
     private Collection $raises;
@@ -137,12 +138,12 @@ class Auction
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?Status
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(Status $status): static
     {
         $this->status = $status;
 
