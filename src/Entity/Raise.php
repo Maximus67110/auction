@@ -19,6 +19,9 @@ class Raise
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'raises')]
+    private ?Auction $auction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Raise
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAuction(): ?Auction
+    {
+        return $this->auction;
+    }
+
+    public function setAuction(?Auction $auction): static
+    {
+        $this->auction = $auction;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuctionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Auction
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+
+    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: Raise::class)]
+    private Collection $raises;
+
+    public function __construct()
+    {
+        $this->raises = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +145,36 @@ class Auction
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Raise>
+     */
+    public function getRaises(): Collection
+    {
+        return $this->raises;
+    }
+
+    public function addRaise(Raise $raise): static
+    {
+        if (!$this->raises->contains($raise)) {
+            $this->raises->add($raise);
+            $raise->setAuction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRaise(Raise $raise): static
+    {
+        if ($this->raises->removeElement($raise)) {
+            // set the owning side to null (unless already changed)
+            if ($raise->getAuction() === $this) {
+                $raise->setAuction(null);
+            }
+        }
 
         return $this;
     }
