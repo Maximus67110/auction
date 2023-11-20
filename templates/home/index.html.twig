@@ -17,14 +17,16 @@
                             <div class="card-text">
                                 <p>{{ (auction.price/100)| format_currency('EUR',locale="fr") }}</p>
                                 <p>Du {{ auction.dateOpen|format_datetime('short', 'short', locale='fr') }} au {{ auction.dateClose|format_datetime('short', 'short', locale='fr') }}</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" class="form-control" id="price" min="0" name="price">
+                                <form method="post" action="{{ path('app_raise_add', { id: auction.id }) }}">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="number" class="form-control" id="price" min="0" name="price">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-success">Enchérir</button>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <a class="btn btn-success">Enchèrir</a>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
