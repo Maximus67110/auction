@@ -16,8 +16,15 @@
                             <h5 class="card-title">{{ auction.title }}</h5>
                             <div class="card-text">
                                 <p>{{ (auction.price/100)| format_currency('EUR',locale="fr") }}</p>
-                                <p>Du {{ auction.dateOpen|format_datetime(locale='fr') }} au {{ auction.dateClose|format_datetime(locale='fr') }}</p>
-                                <button type="button" class="btn btn-secondary">Enchèrir</button>
+                                <p>Du {{ auction.dateOpen|format_datetime('short', 'short', locale='fr') }} au {{ auction.dateClose|format_datetime('short', 'short', locale='fr') }}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" id="price" min="0" name="price">
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-success">Enchèrir</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
