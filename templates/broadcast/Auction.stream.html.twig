@@ -9,11 +9,15 @@
 {% block update %}
     <turbo-stream action="update" target="auction{{ id }}">
         <template>
-            {% include "home/auction.html.twig"  with { 'auction': entity }%}
+            {% include "home/auction.html.twig"  with { 'auction': entity, 'updated': true }%}
         </template>
     </turbo-stream>
 {% endblock %}
 
 {% block remove %}
-    <turbo-stream action="remove" target="auction{{ id }}"></turbo-stream>
+    <turbo-stream action="update" target="auction{{ id }}">
+        <template>
+            {% include "home/auction.html.twig" with { 'auction': entity, 'deleted': true }%}
+        </template>
+    </turbo-stream>
 {% endblock %}
