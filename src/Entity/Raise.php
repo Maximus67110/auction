@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RaiseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RaiseRepository::class)]
 class Raise
@@ -14,6 +15,11 @@ class Raise
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Expression(
+        "value >= this.getLastRaise() + add_value",
+        message: 'the value must be greater than highest raise',
+        values: ['add_value' => 5 * 100]
+    )]
     private ?int $price = null;
 
     #[ORM\Column]
@@ -61,5 +67,14 @@ class Raise
         $this->auction = $auction;
 
         return $this;
+    }
+
+    public function getLastRaise(): ?int
+    {
+        $array = $this->getAuction()?->getRaises()->toArray();
+        if (!count($array)) {
+            return null;
+        }
+        return end($array)->getPrice();
     }
 }
