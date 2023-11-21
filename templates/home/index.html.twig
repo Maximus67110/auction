@@ -3,34 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" {{ turbo_stream_listen('App\\Entity\\Auction') }}>
         <div class="text-center mt-4">
             <h1>Auction List</h1>
         </div>
-        <div class="row mt-5 mb-4 mt-4">
+        <div class="row mt-5 mb-4 mt-4" id="auctions">
             {% for auction in auctions %}
-                <div class="col-md-6 col-lg-3 mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('uploads/' ~ auction.image) }}" class="card-img-top" alt="{{ auction.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ auction.title }}</h5>
-                            <div class="card-text">
-                                <p>{{ (auction.price/100)| format_currency('EUR',locale="fr") }}</p>
-                                <p>Du {{ auction.dateOpen|format_datetime('short', 'short', locale='fr') }} au {{ auction.dateClose|format_datetime('short', 'short', locale='fr') }}</p>
-                                <form id="form_error_{{ auction.id }}" method="post" action="{{ path('app_raise_add', { id: auction.id }) }}">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="number" class="form-control" id="price" min="0" name="price">
-                                        </div>
-                                        <div class="col">
-                                            <button type="submit" class="btn btn-success">Enchérir</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "home/auction.html.twig"  with { 'auction': auction }%}
             {% endfor %}
         </div>
     </div>

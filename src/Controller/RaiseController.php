@@ -25,6 +25,7 @@ class RaiseController extends AbstractController
         $raise->setAuction($auction);
         $raise->setPrice($price);
         $raise->setCreatedAt(new DateTimeImmutable());
+        $auction->setPrice($price);
         $errors = $validator->validate($raise);
         if (count($errors)) {
             if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {

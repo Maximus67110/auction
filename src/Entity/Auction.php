@@ -8,7 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\Status;
+use Symfony\UX\Turbo\Attribute\Broadcast;
 
+#[Broadcast]
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 class Auction
 {
@@ -41,7 +43,7 @@ class Auction
     #[ORM\Column(type: 'string', enumType: Status::class)]
     private ?Status $status = null;
 
-    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: Raise::class)]
+    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: Raise::class, cascade: ['remove'])]
     private Collection $raises;
 
     public function __construct()
