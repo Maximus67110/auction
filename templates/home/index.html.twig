@@ -17,7 +17,7 @@
                             <div class="card-text">
                                 <p>{{ (auction.price/100)| format_currency('EUR',locale="fr") }}</p>
                                 <p>Du {{ auction.dateOpen|format_datetime('short', 'short', locale='fr') }} au {{ auction.dateClose|format_datetime('short', 'short', locale='fr') }}</p>
-                                <form id="form" method="post" action="{{ path('app_raise_add', { id: auction.id }) }}">
+                                <form id="form_error_{{ auction.id }}" method="post" action="{{ path('app_raise_add', { id: auction.id }) }}">
                                     <div class="row">
                                         <div class="col">
                                             <input type="number" class="form-control" id="price" min="0" name="price">

@@ -30,6 +30,7 @@ class RaiseController extends AbstractController
             if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
                 $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
                 return $this->render('home/error.stream.html.twig', [
+                    'id' => $auction->getId(),
                     'errors' => $errors
                 ]);
             }
@@ -42,7 +43,10 @@ class RaiseController extends AbstractController
 
         if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
             $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('home/success.stream.html.twig');
+            return $this->render('home/success.stream.html.twig', [
+                'id' => $auction->getId(),
+                'message' => 'Raise successfully created'
+            ]);
         }
 
         $this->addFlash('success', 'Raise has been successfully created');

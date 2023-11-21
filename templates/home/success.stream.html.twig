@@ -1,7 +1,7 @@
-<turbo-stream action="append" target="form">
+<turbo-stream action="append" target="form_error_{{ id }}">
     <template>
         <div class="alert alert-success mt-2 mb-0" role="alert">
-            Raise successfully created
+            {{ message }}
         </div>
     </template>
 </turbo-stream>

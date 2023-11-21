@@ -15,11 +15,6 @@ class Raise
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\Expression(
-        "value >= this.getLastRaise() + add_value",
-        message: 'the value must be greater than highest raise',
-        values: ['add_value' => 5 * 100]
-    )]
     private ?int $price = null;
 
     #[ORM\Column]
@@ -69,12 +64,15 @@ class Raise
         return $this;
     }
 
+    #[Assert\IsTrue(message: 'Value must be greater than highest raise')]
+    public function isPriceEnough(): bool {
+        return $this->price >= (int) $this->getLastRaise() + 5 * 100;
+    }
+
     public function getLastRaise(): ?int
     {
-        $array = $this->getAuction()?->getRaises()->toArray();
-        if (!count($array)) {
-            return null;
-        }
-        return end($array)->getPrice();
+        $raises = $this->getAuction()?->getRaises()->toArray();
+        $lastRaise = array_pop($raises);
+        return $lastRaise ? $lastRaise->getPrice() : null;
     }
 }
