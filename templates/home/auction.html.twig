@@ -1,9 +1,5 @@
 <div class="col-md-6 col-lg-3 mb-3" id="auction{{ auction.id }}">
-    {% if deleted is defined %}
-        <div class="card" style="width: 18rem;">
-    {% else %}
-        <div class="card bg-light" style="width: 18rem;">
-    {% endif %}
+    <div class="card {{ deleted is defined ? 'bg-light' : '' }}" style="width: 18rem;">
         <img src="{{ asset('uploads/' ~ auction.image) }}" class="card-img-top" alt="{{ auction.title }}">
         <div class="card-body">
             <h5 class="card-title">{{ auction.title }}</h5>
