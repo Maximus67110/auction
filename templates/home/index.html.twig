@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container" {{ turbo_stream_listen('App\\Entity\\Auction') }}>
         <div class="text-center mt-4">
-            <h1>Auction List</h1>
+            <h1>{{ "auctionList"|trans }}</h1>
         </div>
         <div class="row mt-5 mb-4 mt-4" id="auctions">
             {% for auction in auctions %}
