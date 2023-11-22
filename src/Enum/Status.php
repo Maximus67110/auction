@@ -2,7 +2,8 @@
 namespace App\Enum;
 
 enum Status: string {
-    case PENDING = 'pending';
-    case ACCEPTED = 'accepted';
-    case REFUSED = 'refused';
+    case CREATED = 'created';
+    case VISIBLE = 'visible';
+    case ARCHIVED = 'archived';
+    case CANCELLED = 'cancelled';
 }
