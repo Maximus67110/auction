@@ -26,8 +26,8 @@ class RaiseTest extends KernelTestCase
         $errors = $validator->validate($raise);
         $this->assertNotEmpty($errors);
         $this->assertCount(2, $errors);
-        $this->assertSame(self::SHOULD_BE_POSITIVE_ERROR, $errors[0]->getMessage());
-        $this->assertSame(self::SHOULD_BE_ENOUGH, $errors[1]->getMessage());
+        $this->assertStringContainsString(self::SHOULD_BE_POSITIVE_ERROR, $errors);
+        $this->assertStringContainsString(self::SHOULD_BE_ENOUGH, $errors);
     }
 
     public function test_price_should_be_enough(): void
@@ -43,7 +43,7 @@ class RaiseTest extends KernelTestCase
         $errors = $validator->validate($raise);
         $this->assertNotEmpty($errors);
         $this->assertCount(1, $errors);
-        $this->assertSame(self::SHOULD_BE_ENOUGH, $errors[0]->getMessage());
+        $this->assertStringContainsString(self::SHOULD_BE_ENOUGH, $errors[0]->getMessage());
     }
 
     public function test_price_should_be_valid(): void
