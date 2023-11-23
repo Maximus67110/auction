@@ -18,7 +18,7 @@ use Symfony\UX\Turbo\TurboBundle;
 class RaiseController extends AbstractController
 {
     #[Route('/{id}/add', name: 'app_raise_add')]
-    public function add(Request $request, Auction $auction, EntityManagerInterface $entityManager, RaiseRepository $raiseRepository, ValidatorInterface $validator): Response
+    public function add(Request $request, Auction $auction, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
         $price = (int) $request->get('price') * 100;
         $raise = new Raise();
