@@ -39,7 +39,6 @@ class AuctionCrudController extends AbstractCrudController
                     'class' => Status::class,
                     'choices' => Status::cases()
                 ]),
-            DateTimeField::new('createdAt'),
         ];
     }
 }

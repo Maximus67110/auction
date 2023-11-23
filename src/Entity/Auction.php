@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuctionRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,8 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Enum\Status;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
-#[Broadcast]
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[Broadcast]
 class Auction
 {
     #[ORM\Id]
@@ -121,9 +124,10 @@ class Auction
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): static
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTimeImmutable();
 
         return $this;
     }
