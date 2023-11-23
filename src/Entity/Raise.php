@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\RaiseRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RaiseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Raise
 {
     #[ORM\Id]
@@ -46,9 +48,10 @@ class Raise
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): static
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTimeImmutable();
 
         return $this;
     }

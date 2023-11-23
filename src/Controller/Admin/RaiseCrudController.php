@@ -19,7 +19,6 @@ class RaiseCrudController extends AbstractCrudController
     {
         return [
             MoneyField::new('price')->setCurrency('EUR'),
-            DateTimeField::new('createdAt'),
         ];
     }
 }
