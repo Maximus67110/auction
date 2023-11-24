@@ -29,13 +29,15 @@ class AddRaiseTest extends PantherTestCase
         $entityManager->persist($auction);
         $entityManager->flush();
 
-        $client->waitForElementToContain('#auction'.$auction->getId().' .card-text > p:nth-child(1)', '5,00 €', 10);
+        $client->waitForVisibility('#auction'.$auction->getId().' .card-text > p:nth-child(1)');
+        self::assertSelectorWillContain('#auction'.$auction->getId().' .card-text > p:nth-child(1)', '5,00 €');
         $form = $crawler->filter('#auction'.$auction->getId().' form')->form([
             "price" => 10
         ]);
         $client->submit($form);
-        $client->waitForElementToContain('#auction'.$auction->getId().' .card-text > p:nth-child(1)', '10,00 €', 10);
-        $client->waitForElementToContain('#auction'.$auction->getId().' .alert-success', 'Raise successfully created', 10);
-        $client->takeScreenshot(__DIR__ . '/screens/accueil.png');
+        $client->waitForVisibility('#auction'.$auction->getId().' .card-text > p:nth-child(1)');
+        self::assertSelectorWillContain('#auction'.$auction->getId().' .card-text > p:nth-child(1)', '10,00 €');
+        $client->waitForVisibility('#auction'.$auction->getId().' .alert-success');
+        self::assertSelectorWillContain('#auction'.$auction->getId().' .alert-success', 'Raise successfully created');
     }
 }
