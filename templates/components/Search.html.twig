@@ -1,0 +1,25 @@
+<div  {{ attributes }}>
+    <div>
+        <div class="container-fluid py-5">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" data-model="title">
+                </div>
+                <div class="col-md-2">
+                    <label for="min" class="form-label">Min</label>
+                    <input type="number" class="form-control" id="min" name="min" min="0" data-model="min">
+                </div>
+                <div class="col-md-2">
+                    <label for="max" class="form-label">Max</label>
+                    <input type="number" class="form-control" id="max" name="max" data-model="max">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-4 mt-4" id="auctions">
+        {% for auction in this.getAuctions %}
+            {% include "home/auction.html.twig"  with { 'auction': auction }%}
+        {% endfor %}
+    </div>
+</div>

@@ -21,20 +21,37 @@ class AuctionRepository extends ServiceEntityRepository
         parent::__construct($registry, Auction::class);
     }
 
-//    /**
-//     * @return Auction[] Returns an array of Auction objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function search($title, $min, $max): array
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        if (!empty($title)) {
+            $qb
+                ->join('a.translations', 't')
+                ->andWhere('t.title LIKE :title')
+                ->setParameter('title', "%$title%")
+            ;
+        }
+
+        if (isset($min)) {
+            $qb
+                ->orWhere('a.price >= :min')
+                ->setParameter('min', $min * 100)
+            ;
+        }
+
+        if (isset($max)) {
+            $qb
+                ->orWhere('a.price <= :max')
+                ->setParameter('max', $max * 100)
+            ;
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 //    public function findOneBySomeField($value): ?Auction
 //    {
