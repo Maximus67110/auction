@@ -4,7 +4,8 @@
         <div class="card-body">
             <h5 class="card-title">{{ auction.title }}</h5>
             <div class="card-text">
-                <p>{{ (auction.price/100)| format_currency('EUR',locale="fr") }}</p>
+                <p>{{ (auction.price/100) | format_currency('EUR',locale="fr") }}</p>
+                <p>{{ auction.description | raw }}</p>
                 <p>Du {{ auction.dateOpen|format_datetime('short', 'short', locale='fr') }} au {{ auction.dateClose|format_datetime('short', 'short', locale='fr') }}</p>
                 {% if deleted is defined %}
                     <form>

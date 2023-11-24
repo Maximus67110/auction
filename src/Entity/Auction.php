@@ -10,26 +10,24 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\Status;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Broadcast]
-class Auction
+class Auction implements TranslatableInterface
 {
+    use TranslatableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
     #[ORM\Column]
     private ?int $price = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateOpen = null;
@@ -61,14 +59,7 @@ class Auction
 
     public function getTitle(): ?string
     {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
+        return $this->translate()->getTitle();
     }
 
     public function getPrice(): ?int
@@ -85,7 +76,7 @@ class Auction
 
     public function getDescription(): ?string
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     public function setDescription(string $description): static

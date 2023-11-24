@@ -16,4 +16,7 @@ return [
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
+    Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class => ['all' => true],
+    A2lix\AutoFormBundle\A2lixAutoFormBundle::class => ['all' => true],
+    A2lix\TranslationFormBundle\A2lixTranslationFormBundle::class => ['all' => true],
 ];

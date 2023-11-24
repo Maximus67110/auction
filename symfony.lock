@@ -1,4 +1,10 @@
 {
+    "a2lix/auto-form-bundle": {
+        "version": "0.4.4"
+    },
+    "a2lix/translation-form-bundle": {
+        "version": "3.2.1"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.11",
         "recipe": {
@@ -34,6 +40,9 @@
             "version": "3.0",
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
+    },
+    "knplabs/doctrine-behaviors": {
+        "version": "2.6.2"
     },
     "phpunit/phpunit": {
         "version": "9.6",
