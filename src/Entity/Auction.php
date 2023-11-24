@@ -79,13 +79,6 @@ class Auction implements TranslatableInterface
         return $this->translate()->getDescription();
     }
 
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function getDateOpen(): ?\DateTimeInterface
     {
         return $this->dateOpen;

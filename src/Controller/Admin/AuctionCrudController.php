@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\Field\TranslationField;
+use App\Controller\Admin\Field\TranslationsField;
 use App\Entity\Auction;
 use App\Enum\Status;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -11,9 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AuctionCrudController extends AbstractCrudController
 {
@@ -24,21 +24,10 @@ class AuctionCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $fieldsConfig = [
-            'title' => [
-                'field_type' => TextType::class,
-                'required' => true,
-            ],
-            'description' => [
-                'field_type' => TextareaType::class,
-                'required' => true,
-            ]
-        ];
-
         return [
-            TranslationField::new('translations', null, $fieldsConfig)
-                ->setRequired(true)
-                ->hideOnIndex(),
+            TranslationsField::new('translations')
+                ->addTranslatableField(TextField::new('title'))
+                ->addTranslatableField(TextEditorField::new('description')),
             MoneyField::new('price')->setCurrency('EUR'),
             DateTimeField::new('dateOpen'),
             DateTimeField::new('dateClose'),
