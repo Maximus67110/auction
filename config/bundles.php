@@ -19,4 +19,5 @@ return [
     Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class => ['all' => true],
     A2lix\AutoFormBundle\A2lixAutoFormBundle::class => ['all' => true],
     A2lix\TranslationFormBundle\A2lixTranslationFormBundle::class => ['all' => true],
+    Symfony\UX\Typed\TypedBundle::class => ['all' => true],
 ];
